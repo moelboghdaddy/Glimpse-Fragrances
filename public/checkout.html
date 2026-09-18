@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Glimpse — Checkout</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,400&family=Playfair+Display:ital,wght@1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/cart.css">
+  <style>
+    :root {
+      --ink: #050505;
+      --bordeaux: #161616;
+      --bordeaux-deep: #0D0D0D;
+      --ivory: #F5F5F3;
+      --gold: #FFFFFF;
+      --gold-soft: #C9C9C9;
+      --smoke: #8A8A8A;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--ink);
+      color: var(--ivory);
+      font-family: 'Manrope', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    .serif {
+      font-family: 'Fraunces', serif;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img,
+    svg {
+      display: block;
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* ---------- NAV ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(14, 13, 12, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    nav.wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 84px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      opacity: 0.82;
+      transition: opacity .25s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--gold-soft);
+    }
+
+    .logo {
+      font-size: 24px;
+      letter-spacing: 0.14em;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-img {
+      height: 26px;
+      width: auto;
+      filter: invert(1);
+      display: block;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* ---------- BREADCRUMB ---------- */
+    .breadcrumb {
+      padding: 28px 0 0;
+      font-size: 12.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(244, 238, 226, 0.5);
+    }
+
+    .breadcrumb a:hover {
+      color: var(--gold);
+    }
+
+    .breadcrumb span {
+      margin: 0 8px;
+      opacity: 0.5;
+    }
+
+    /* ---------- CHECKOUT LAYOUT ---------- */
+    .checkout {
+      padding: 48px 0 120px;
+    }
+
+    .checkout h1 {
+      font-size: clamp(30px, 3.6vw, 44px);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .checkout-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 60px;
+      align-items: flex-start;
+    }
+
+    /* ---------- FORM ---------- */
+    .field {
+      margin-bottom: 22px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 12.5px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      margin-bottom: 8px;
+    }
+
+    .field .hint {
+      font-size: 12px;
+      color: rgba(244, 238, 226, 0.45);
+      margin-top: 6px;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 2px;
+      padding: 13px 16px;
+      color: var(--ivory);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14.5px;
+      outline: none;
+      transition: border-color .2s ease;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--gold);
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: rgba(244, 238, 226, 0.35);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .field.error input {
+      border-color: #e2645a;
+    }
+
+    .field-error-msg {
+      font-size: 12px;
+      color: #e2837a;
+      margin-top: 6px;
+      display: none;
+    }
+
+    .field.error .field-error-msg {
+      display: block;
+    }
+
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 4px;
+      padding: 16px 18px;
+      cursor: pointer;
+      transition: border-color .2s ease, background .2s ease;
+    }
+
+    .payment-option:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .payment-option.selected {
+      border-color: var(--gold);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .payment-option input {
+      margin-top: 3px;
+      accent-color: var(--gold);
+    }
+
+    .payment-option .po-title {
+      font-size: 14.5px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .payment-option .po-sub {
+      font-size: 12.5px;
+      color: rgba(244, 238, 226, 0.55);
+      line-height: 1.5;
+    }
+
+    .btn-confirm {
+      width: 100%;
+      background: var(--gold);
+      color: var(--ink);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 17px;
+      border: none;
+      border-radius: 2px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .btn-confirm:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px -10px rgba(255, 255, 255, 0.3);
+    }
+
+    /* ---------- ORDER SUMMARY ---------- */
+    .summary-box {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 6px;
+      padding: 28px;
+      background: linear-gradient(165deg, rgba(255, 255, 255, 0.04), rgba(14, 13, 12, 0.15));
+      position: sticky;
+      top: 110px;
+    }
+
+    .summary-box h3 {
+      font-size: 19px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .summary-divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      margin: 18px 0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: rgba(244, 238, 226, 0.7);
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+      margin-top: 14px;
+    }
+
+    .summary-total strong {
+      font-family: 'Fraunces', serif;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ---------- SUCCESS STATE ---------- */
+    .success-panel {
+      display: none;
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .success-icon-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .success-circle {
+      width: 80px;
+      height: 80px;
+    }
+
+    .checkmark-svg {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2.5;
+      stroke: #121212;
+      stroke-miterlimit: 10;
+      box-shadow: inset 0px 0px 0px #121212;
+      animation: fill 0.4s ease-in-out 0.4s forwards, scale 0.3s ease-in-out 0.9s both;
+    }
+
+    .checkmark-circle {
+      stroke-dasharray: 166;
+      stroke-dashoffset: 166;
+      stroke-width: 2.5;
+      stroke-miterlimit: 10;
+      stroke: #121212;
+      fill: none;
+      animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+    }
+
+    .checkmark-check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+    }
+
+    @keyframes stroke {
+      100% {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes scale {
+
+      0%,
+      100% {
+        transform: none;
+      }
+
+      50% {
+        transform: scale3d(1.1, 1.1, 1);
+      }
+    }
+
+    .success-title {
+      font-family: 'Didot', 'Bodoni MT', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #121212 !important;
+      margin-bottom: 8px;
+    }
+
+    .success-order-num {
+      font-family: 'Didot', 'Bodoni MT', serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #d4af37 !important;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+    }
+
+    .success-msg-body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.7;
+      color: #222222 !important;
+      margin-bottom: 36px;
+    }
+
+    .ig-link {
+      color: #0070e0 !important;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .btn-continue-shopping {
+      display: inline-block;
+      background-color: #121212;
+      color: #ffffff !important;
+      padding: 16px 42px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-decoration: none;
+      border-radius: 4px;
+      border: 1px solid #121212;
+      transition: all 0.3s ease;
+    }
+
+    .btn-continue-shopping:hover {
+      background-color: #333333;
+      border-color: #333333;
+      transform: translateY(-2px);
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 70px 0 36px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 16px;
+    }
+
+    .footer-brand p {
+      color: rgba(244, 238, 226, 0.55);
+      font-size: 14px;
+      line-height: 1.7;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-size: 12.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold-soft);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .footer-col a {
+      font-size: 14px;
+      color: rgba(244, 238, 226, 0.72);
+      transition: color .2s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      padding-top: 28px;
+      font-size: 13px;
+      color: rgba(244, 238, 226, 0.4);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 22px;
+    }
+
+    .socials a {
+      opacity: 0.6;
+      transition: opacity .2s ease;
+    }
+
+    .socials a:hover {
+      opacity: 1;
+      color: var(--gold);
+    }
+
+    /* ---------- LIGHT MODE OVERRIDES ---------- */
+    body {
+      background: #FFFFFF;
+      color: #121212;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-links a {
+      color: #121212;
+    }
+
+    .logo-img {
+      filter: none;
+    }
+
+    .breadcrumb {
+      color: rgba(18, 18, 18, 0.5);
+    }
+
+    .breadcrumb a:hover {
+      color: #121212;
+    }
+
+    .field label {
+      color: #4a4a4a;
+    }
+
+    .field input,
+    .field textarea {
+      border-color: rgba(0, 0, 0, 0.22);
+      color: #121212;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: #121212;
+    }
+
+    .payment-option {
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .payment-option.selected {
+      border-color: #121212;
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    .btn-confirm {
+      background: #121212;
+      color: #fff;
+    }
+
+    .summary-box {
+      border-color: rgba(0, 0, 0, 0.14);
+      background: linear-gradient(165deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.01));
+    }
+
+    .summary-divider {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-row {
+      color: rgba(18, 18, 18, 0.7);
+    }
+
+    .summary-total strong {
+      color: #121212;
+    }
+
+    footer {
+      border-top-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .footer-brand p {
+      color: rgba(18, 18, 18, 0.55);
+    }
+
+    .footer-col h4 {
+      color: #4a4a4a;
+    }
+
+    .footer-col a {
+      color: rgba(18, 18, 18, 0.72);
+    }
+
+    .footer-bottom {
+      border-top-color: rgba(0, 0, 0, 0.1);
+      color: rgba(18, 18, 18, 0.4);
+    }
+
+    /* Centered Modal Overlay */
+    .instapay-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .instapay-modal-overlay.active {
+      display: flex !important;
+    }
+
+    .instapay-modal-content {
+      background: #121212;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 36px 30px;
+      max-width: 440px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-family: 'Didot', 'Bodoni MT', 'Cinzel', serif;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: #aaa;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .instapay-modal-content h3 {
+      font-size: 1.65rem;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    .instapay-modal-content p {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .modal-account-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 22px;
+    }
+
+    .account-label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #aaa;
+      margin-bottom: 6px;
+      font-family: sans-serif;
+    }
+
+    .account-id {
+      font-family: 'Didot', 'Bodoni MT', serif;
+      font-size: 1.25rem;
+      color: var(--gold, #d4af37);
+      font-weight: 600;
+    }
+
+    .btn-modal-gotit {
+      width: 100%;
+      padding: 14px;
+      background: var(--gold, #d4af37);
+      color: #000;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: sans-serif;
+    }
+
+    /* --- FULL GLIMPSE FRONTEND BRAND OVERRIDES --- */
+
+    /* Base Canvas & Palette */
+    :root {
+      --bg: #030303 !important;
+      --card-bg: #0a0a0c !important;
+      --card-border: rgba(212, 175, 55, 0.15) !important;
+      --gold: #d4af37 !important;
+      --gold-light: #f3e5ab !important;
+      --gold-soft: rgba(212, 175, 55, 0.08) !important;
+      --text: #f4f4f6 !important;
+      --text-muted: #8e8e99 !important;
+    }
+
+    body {
+      background-color: var(--bg) !important;
+      background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.05) 0%, transparent 60%) !important;
+    }
+
+    /* Header & Brand Identity */
+    header {
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+    }
+
+    .logo-badge {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(0, 0, 0, 0.8)) !important;
+      border: 1px solid var(--gold) !important;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+      color: var(--gold-light) !important;
+    }
+
+    /* Luxury Cards & Panels */
+    .card,
+    .panel,
+    .status-bar {
+      background: var(--card-bg) !important;
+      border: 1px solid var(--card-border) !important;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+      backdrop-filter: blur(20px) !important;
+    }
+
+    .card:hover,
+    .panel:hover {
+      border-color: rgba(212, 175, 55, 0.35) !important;
+    }
+
+    /* Typography Overrides */
+    h1,
+    .panel-title,
+    .card-value {
+      font-family: 'Fraunces', serif !important;
+      letter-spacing: -0.02em !important;
+    }
+
+    .card-value {
+      color: var(--gold-light) !important;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Action Buttons */
+    .btn {
+      background: rgba(255, 255, 255, 0.03) !important;
+      border: 1px solid rgba(212, 175, 55, 0.2) !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn:hover {
+      border-color: var(--gold) !important;
+      color: var(--gold-light) !important;
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #d4af37, #b8860b) !important;
+      color: #000000 !important;
+      border: none !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.03em !important;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25) !important;
+    }
+
+    .btn-gold:hover {
+      filter: brightness(1.15);
+      color: #000000 !important;
+    }
+
+    /* Payment Badges & Status */
+    .pay-badge {
+      background: var(--gold-soft) !important;
+      color: var(--gold) !important;
+      border: 1px solid rgba(212, 175, 55, 0.3) !important;
+      letter-spacing: 0.08em !important;
+    }
+
+    /* Data Tables */
+    thead th {
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2) !important;
+      color: var(--gold-light) !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    tbody tr:hover {
+      background: rgba(212, 175, 55, 0.03) !important;
+    }
+
+    tbody td {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+    }
+
+    /* Dark Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #030303;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <nav class="wrap">
+      <a href="index.html" class="logo">
+        <img src="assets/logo.png" class="logo-img" alt="Glimpse">
+      </a>
+      <div class="nav-links">
+        <a href="index.html#why">About</a>
+        <a href="index.html#bestsellers">Shop</a>
+        <a href="index.html#footer">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <div class="cart-wrap">
+          <button id="cart-toggle" class="cart-toggle" aria-label="Open cart">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 7h12l-1 13H7L6 7z" />
+              <path d="M9 7V5a3 3 0 016 0v2" />
+            </svg>
+            <span class="cart-badge" id="cart-badge">0</span>
+          </button>
+          <div class="cart-panel" id="cart-panel">
+            <h4>Your Cart</h4>
+            <div class="cart-empty" id="cart-empty">Your cart is empty.</div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-subtotal-row">
+              <span>Subtotal</span>
+              <strong id="cart-subtotal-value">0 EGP</strong>
+            </div>
+            <div class="cart-shipping-note">+ 100 EGP shipping at checkout</div>
+            <a href="checkout.html" class="cart-checkout-btn disabled" id="cart-checkout-btn">Checkout</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- BREADCRUMB -->
+  <div class="wrap breadcrumb">
+    <a href="/index.html">Home</a>
+    <span>/</span>
+    Checkout
+  </div>
+
+  <!-- CHECKOUT MAIN SECTION -->
+  <main class="checkout wrap" style="max-width: 1200px; margin: 0 auto; padding: 40px 20px;">
+    <h1 style="font-family: serif; font-size: 2rem; margin-bottom: 30px;">Checkout</h1>
+
+    <!-- SUCCESS PANEL -->
+    <div id="success-panel" class="success-panel">
+      <div class="success-icon-wrap">
+        <div class="success-circle">
+          <svg class="checkmark-svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="23" fill="none" />
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+          </svg>
+        </div>
+      </div>
+
+      <h2 class="success-title">Order Confirmation</h2>
+      <p class="success-order-num" id="display-order-number">#GLM-0000</p>
+
+      <div class="success-msg-body" id="success-message-body"></div>
+
+      <a href="/index.html" class="btn-continue-shopping">Continue Shopping</a>
+    </div>
+
+    <!-- MAIN CHECKOUT GRID -->
+    <div class="checkout-grid" id="checkout-grid"
+      style="display: flex; flex-direction: row; gap: 48px; align-items: flex-start; width: 100%;">
+
+      <form id="checkout-form" style="flex: 1 1 60% !important; min-width: 0 !important; margin: 0 !important;">
+
+        <!-- Full Name -->
+        <div class="field">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" required placeholder="Your full name">
+          <div class="field-error-msg">Please enter your full name</div>
+        </div>
+
+        <!-- Address -->
+        <div class="field">
+          <label for="address">Delivery Address</label>
+          <textarea id="address" required placeholder="Street, building, floor, city..."></textarea>
+          <div class="field-error-msg">Please enter a valid address</div>
+        </div>
+
+        <!-- Phone Row -->
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">Phone Number (WhatsApp)</label>
+            <input type="text" id="phone" required placeholder="e.g. 01XXXXXXXXX">
+            <div class="hint">We'll contact you here — must have WhatsApp.</div>
+            <div class="field-error-msg">Valid phone number required</div>
+          </div>
+          <div class="field">
+            <label for="alt-phone">Second Phone (Optional)</label>
+            <input type="text" id="alt-phone" placeholder="Alternative number">
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="field">
+          <label>Payment Method</label>
+
+          <div class="payment-options">
+            <label class="payment-option selected" id="payment-option-cod">
+              <input type="radio" name="payment" value="cod" checked onclick="selectPaymentMethod('cod')">
+              <div>
+                <div class="po-title">Cash on Delivery</div>
+                <div class="po-sub">Pay in cash when your order arrives.</div>
+              </div>
+            </label>
+
+            <label class="payment-option" id="payment-option-instapay">
+              <input type="radio" name="payment" value="instapay" onclick="selectPaymentMethod('instapay')">
+              <div>
+                <div class="po-title">InstaPay Transfer</div>
+                <div class="po-sub">Direct transfer via InstaPay application.</div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-confirm" style="width: 100%; margin-top: 16px;">Confirm Order</button>
+      </form>
+
+      <!-- ORDER SUMMARY CARD -->
+      <div class="summary-box"
+        style="flex: 0 0 380px !important; width: 380px !important; position: sticky !important; top: 100px !important; margin: 0 !important;">
+        <h3>Order Summary</h3>
+
+        <div id="summary-items"></div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-row">
+          <span>Subtotal</span>
+          <span id="summary-subtotal">0 EGP</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span id="summary-shipping">100 EGP</span>
+        </div>
+
+        <div class="summary-divider"></div>
+
+        <div class="summary-total">
+          <span>Total</span>
+          <strong id="summary-total">100 EGP</strong>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer id="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="logo">
+            <img src="assets/logo.png" class="logo-img" alt="Glimpse">
+          </div>
+          <p>Premium fragrance, made for the Egyptian market. International quality, honest prices.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Customer Support</a></li>
+            <li><a href="#">Delivery Details</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul>
+            <li><a href="#">Manage Deliveries</a></li>
+            <li><a href="#">Orders</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Glimpse Parfums. All rights reserved.</span>
+        <div class="socials">
+          <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INSTAPAY MODAL -->
+  <div id="instapay-modal" class="instapay-modal-overlay" onclick="closeInstaPayModal(event)">
+    <div class="instapay-modal-content">
+      <button type="button" class="modal-close-btn" onclick="closeInstaPayModal(event)">&times;</button>
+
+      <h3>InstaPay Payment Details</h3>
+      <p>Please transfer the total order amount to the following account:</p>
+
+      <div class="modal-account-box">
+        <span class="account-label">InstaPay Address</span>
+        <strong class="account-id">moelboghdady20@instapay</strong>
+      </div>
+
+      <p class="modal-instruction">
+        After confirming your order, send a screenshot of your payment transfer to our Instagram page:
+        <br>
+        <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener">@glimpse.fragrances</a>
+      </p>
+
+      <button type="button" class="btn-modal-gotit" onclick="closeInstaPayModal(event)">Got It</button>
+    </div>
+  </div>
+
+  <script src="assets/cart.js"></script>
+  <script src="/tracker.js"></script>
+  <script>
+    // 1. Payment Radio Selector & Modal Handler
+    function selectPaymentMethod(method) {
+      const codOption = document.getElementById('payment-option-cod');
+      const instapayOption = document.getElementById('payment-option-instapay');
+      const modal = document.getElementById('instapay-modal');
+
+      if (method === 'instapay') {
+        instapayOption?.classList.add('selected');
+        codOption?.classList.remove('selected');
+        modal?.classList.add('active');
+      } else {
+        codOption?.classList.add('selected');
+        instapayOption?.classList.remove('selected');
+      }
+    }
+
+    function closeInstaPayModal(event) {
+      if (!event || event.target.id === 'instapay-modal' || event.currentTarget.classList.contains('modal-close-btn') || event.currentTarget.classList.contains('btn-modal-gotit')) {
+        document.getElementById('instapay-modal')?.classList.remove('active');
+      }
+    }
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape') {
+        document.getElementById('instapay-modal')?.classList.remove('active');
+      }
+    });
+
+    // 2. Render Order Summary Details
+    (function renderCartSummary() {
+      try {
+        const rawCart = localStorage.getItem('cart') || localStorage.getItem('glimpse_cart') || '[]';
+        const cartData = JSON.parse(rawCart);
+
+        let subtotalVal = 0;
+        if (Array.isArray(cartData) && cartData.length > 0) {
+          subtotalVal = cartData.reduce((acc, item) => acc + ((Number(item.price) || 0) * (Number(item.quantity || item.qty) || 1)), 0);
+
+          const summaryItems = document.getElementById('summary-items');
+          if (summaryItems) {
+            summaryItems.innerHTML = cartData.map(item => `
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:12px;">
+                <div style="display:flex; align-items:center; gap:12px;">
+                  <img src="${item.image || item.photo || 'assets/placeholder.jpg'}" alt="${item.name || 'Item'}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
+                  <div>
+                    <div style="font-weight:600; font-size:0.9rem; color:#111;">${item.name || 'Fragrance'}</div>
+                    <div style="font-size:0.8rem; color:#666;">Qty: ${item.quantity || item.qty || 1}</div>
+                  </div>
+                </div>
+                <div style="font-weight:600; font-size:0.9rem;">${(Number(item.price) || 0) * (Number(item.quantity || item.qty) || 1)} EGP</div>
+              </div>
+            `).join('');
+          }
+        }
+
+        const shippingVal = subtotalVal > 0 ? 100 : 0;
+        const totalVal = subtotalVal + shippingVal;
+
+        document.getElementById('summary-subtotal').textContent = subtotalVal + ' EGP';
+        document.getElementById('summary-shipping').textContent = shippingVal + ' EGP';
+        document.getElementById('summary-total').textContent = totalVal + ' EGP';
+      } catch (err) {
+        console.warn('Summary render skipped:', err);
+      }
+    })();
+
+    // 3. Form Submission Logic
+    document.getElementById('checkout-form')?.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('name');
+      const phoneInput = document.getElementById('phone');
+      const altPhoneInput = document.getElementById('alt-phone');
+      const addressInput = document.getElementById('address');
+
+      if (!nameInput?.value.trim() || !phoneInput?.value.trim() || !addressInput?.value.trim()) {
+        alert('Please fill out all required fields.');
+        return;
+      }
+
+      const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
+      const paymentMethodFormatted = selectedPayment === 'instapay' ? 'InstaPay' : 'COD';
+
+      const randomOrderNum = 'GLM-' + Math.floor(1000 + Math.random() * 9000);
+
+      // Cart Data
+      const rawCart = localStorage.getItem('cart') || localStorage.getItem('glimpse_cart') || '[]';
+      const cartItems = JSON.parse(rawCart);
+      const subtotal = cartItems.reduce((acc, item) => acc + ((Number(item.price) || 0) * (Number(item.quantity || item.qty) || 1)), 0);
+      const totalAmount = subtotal > 0 ? subtotal + 100 : 0;
+
+      // Submit Payload (Sends paymentMethod under both key options for backend compatibility)
+      const orderPayload = {
+        orderNumber: randomOrderNum,
+        customer: {
+          name: nameInput.value.trim(),
+          phone: phoneInput.value.trim(),
+          altPhone: altPhoneInput?.value.trim() || '',
+          address: addressInput.value.trim()
+        },
+        items: cartItems,
+        totalAmount: totalAmount,
+        paymentMethod: paymentMethodFormatted,
+        payment_method: paymentMethodFormatted
+      };
+
+      try {
+        await fetch('/api/orders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(orderPayload)
+        });
+      } catch (err) {
+        console.error('Order submission failed:', err);
+      }
+
+      // Display Success Messages
+      document.getElementById('display-order-number').textContent = '#' + randomOrderNum;
+      const msgContainer = document.getElementById('success-message-body');
+
+      if (selectedPayment === 'instapay') {
+        msgContainer.innerHTML = `
+          Your order has been created with reference <strong style="color:#121212;">#${randomOrderNum}</strong>.
+          <br><br>
+          Your order will be confirmed as soon as you send us a message on Instagram with a screenshot of your payment transfer.
+          <br><br>
+          Send screenshot to: 
+          <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener noreferrer" class="ig-link">
+            @glimpse.fragrances
+          </a>
+        `;
+      } else {
+        msgContainer.innerHTML = `
+          Thank you for your purchase!
+          <br><br>
+          Your order has been confirmed. We are currently preparing your shipment and will contact you via WhatsApp prior to delivery.
+        `;
+      }
+
+      // Reset local cart state
+      localStorage.removeItem('cart');
+      localStorage.removeItem('glimpse_cart');
+      if (window.GlimpseCart && typeof window.GlimpseCart.clearCart === 'function') {
+        window.GlimpseCart.clearCart();
+      }
+
+      // Switch panels
+      document.getElementById('checkout-grid').style.display = 'none';
+      document.querySelector('main.checkout h1').style.display = 'none';
+      document.getElementById('success-panel').style.display = 'block';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+
+</html>

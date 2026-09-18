@@ -1,0 +1,80 @@
+.cart-wrap{ position:relative; }
+.cart-toggle{
+  position:relative;
+  width:38px; height:38px; border-radius:50%;
+  border:1px solid rgba(255,255,255,0.25); background:transparent;
+  display:flex; align-items:center; justify-content:center; cursor:pointer;
+  transition:border-color .3s ease;
+}
+.cart-toggle:hover{ border-color:var(--gold); }
+.cart-toggle svg{ width:18px; height:18px; stroke:var(--ivory); }
+
+.cart-badge{
+  position:absolute; top:-6px; right:-6px;
+  min-width:18px; height:18px; border-radius:9px; padding:0 4px;
+  background:var(--gold); color:var(--ink);
+  font-size:10.5px; font-weight:700; font-family:'Manrope',sans-serif;
+  display:none; align-items:center; justify-content:center;
+}
+
+.cart-panel{
+  position:absolute; top:calc(100% + 14px); right:0; z-index:80;
+  width:340px; max-width:88vw;
+  background:var(--ink); border:1px solid rgba(255,255,255,0.16); border-radius:6px;
+  box-shadow:0 20px 50px -12px rgba(0,0,0,0.6);
+  padding:22px; opacity:0; pointer-events:none; transform:translateY(-8px);
+  transition:opacity .25s ease, transform .25s ease;
+}
+.cart-panel.open{ opacity:1; pointer-events:auto; transform:translateY(0); }
+
+.cart-panel h4{ font-family:'Fraunces',serif; font-weight:500; font-size:18px; margin-bottom:16px; }
+.cart-empty{ font-size:13.5px; color:rgba(244,238,226,0.55); padding:6px 0 18px; }
+
+.cart-items{ display:flex; flex-direction:column; gap:16px; max-height:320px; overflow-y:auto; margin-bottom:4px; }
+.cart-item{ display:flex; gap:12px; align-items:center; position:relative; padding-right:18px; }
+.cart-item img{ width:52px; height:52px; object-fit:cover; border-radius:4px; flex-shrink:0; }
+.cart-item-name{ font-size:13.5px; font-weight:600; margin-bottom:2px; }
+.cart-item-price{ font-size:12px; color:rgba(244,238,226,0.55); margin-bottom:6px; }
+
+.cart-item-qty{ display:flex; align-items:center; gap:10px; }
+.cart-qty-btn{ width:22px; height:22px; border:1px solid rgba(255,255,255,0.25); background:transparent; color:var(--ivory); border-radius:2px; cursor:pointer; font-size:13px; line-height:1; }
+
+.cart-item-qty span{ font-size:12.5px; min-width:14px; text-align:center; }
+.cart-remove{ position:absolute; top:0; right:0; background:none; border:none; color:rgba(244,238,226,0.4); font-size:16px; cursor:pointer; line-height:1; }
+.cart-remove:hover{ color:var(--gold); }
+
+.cart-subtotal-row{ display:flex; justify-content:space-between; align-items:center; padding-top:16px; margin-top:12px; border-top:1px solid rgba(255,255,255,0.14); margin-bottom:6px; font-size:14px; }
+
+.cart-subtotal-row strong{ font-family:'Fraunces',serif; font-size:17px; color:var(--gold); font-weight:500; }
+
+.cart-shipping-note{ font-size:11.5px; color:rgba(244,238,226,0.45); margin-bottom:16px; }
+
+.cart-checkout-btn{
+  display:block; width:100%; text-align:center;
+  background:var(--gold); color:var(--ink); padding:14px; border:none; border-radius:2px;
+  font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:700; cursor:pointer;
+  transition:opacity .2s ease; text-decoration:none;
+}
+.cart-checkout-btn.disabled{ opacity:0.35; pointer-events:none; }
+
+.cart-toggle.cart-bump{ animation: cartBump 0.35s ease; }
+@keyframes cartBump{ 0%{ transform:scale(1); } 45%{ transform:scale(1.28); } 100%{ transform:scale(1); } }
+
+@media (max-width:860px){
+  .cart-panel{ right:-60px; }
+}
+
+/* ---------- LIGHT-ONLY VALUES ---------- */
+.cart-toggle{ border-color:rgba(0,0,0,0.2); }
+.cart-toggle svg{ stroke:#121212; }
+.cart-badge{ background:#121212; color:#fff; }
+.cart-panel{ background:#FFFFFF; border-color:rgba(0,0,0,0.12); }
+.cart-empty{ color:rgba(18,18,18,0.55); }
+.cart-item-price{ color:rgba(18,18,18,0.55); }
+.cart-qty-btn{ border-color:rgba(0,0,0,0.25); color:#121212; }
+.cart-remove{ color:rgba(18,18,18,0.4); }
+.cart-remove:hover{ color:#121212; }
+.cart-subtotal-row{ border-top-color:rgba(0,0,0,0.1); }
+.cart-subtotal-row strong{ color:#121212; }
+.cart-shipping-note{ color:rgba(18,18,18,0.45); }
+.cart-checkout-btn{ background:#121212; color:#fff; }

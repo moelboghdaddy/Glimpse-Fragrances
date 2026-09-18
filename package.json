@@ -1,0 +1,17 @@
+{
+  "name": "glimpse-analytics-server",
+  "version": "1.0.0",
+  "description": "Glimpse Parfums e-commerce store with Node.js, Express, and MongoDB Analytics",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
+    "express": "^4.22.3",
+    "mongoose": "^8.24.4"
+  }
+}
