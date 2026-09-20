@@ -1056,11 +1056,22 @@
         payment_method: paymentMethodFormatted
       };
 
+      // Prepare payload matching your Cloudflare backend fields
+      const backendPayload = {
+        fullName: nameInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        secondaryPhone: altPhoneInput?.value.trim() || 'None provided',
+        address: addressInput.value.trim(),
+        product: cartItems.map(item => `${item.name || 'Fragrance'} (x${item.quantity || item.qty || 1})`).join(', ') || 'N/A',
+        totalPrice: totalAmount + ' EGP',
+        paymentMethod: paymentMethodFormatted
+      };
+
       try {
-        await fetch('/api/orders', {
+        await fetch('https://618d447a.my-free-api.pages.dev/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(orderPayload)
+          body: JSON.stringify(backendPayload)
         });
       } catch (err) {
         console.error('Order submission failed:', err);
