@@ -2,10 +2,12 @@
 <html lang="en">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>Glimpse</title>
 
   <!-- Crisp multi-size Favicon setup -->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -21,6 +23,55 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/cart.css">
   <style>
+    /* 1. Global Input Fix: Text Visibility & Sizing */
+    input,
+    select,
+    textarea {
+      /* Fixes Light Gray Text on Desktop & Mobile */
+      color: #111111 !important;
+      -webkit-text-fill-color: #111111 !important;
+      background-color: #ffffff !important;
+      opacity: 1 !important;
+
+      /* Fixes Mobile Form Sizing & Overflow */
+      width: 100% !important;
+      /* Forces inputs to fit their container */
+      max-width: 100% !important;
+      /* Prevents horizontal overflow/scrolling */
+      box-sizing: border-box !important;
+      /* Includes padding inside the total width */
+
+      /* Touch & Readability Enhancements */
+      padding: 12px 14px;
+      font-size: 16px !important;
+      /* Prevents iOS auto-zoom on field focus */
+      border: 1px solid #cccccc;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      /* Spacing between fields */
+    }
+
+    /* 2. Clear Placeholder Text Styling */
+    ::placeholder,
+    input::placeholder,
+    textarea::placeholder {
+      color: #666666 !important;
+      -webkit-text-fill-color: #666666 !important;
+      opacity: 1 !important;
+    }
+
+    /* 3. Form Container Mobile Wrapper */
+    form,
+    .checkout-container {
+      width: 100%;
+      max-width: 500px;
+      /* Clean width on desktop */
+      margin: 0 auto;
+      /* Centers form on screen */
+      padding: 16px;
+      box-sizing: border-box;
+    }
+
     :root {
       --ink: #050505;
       --bordeaux: #161616;
