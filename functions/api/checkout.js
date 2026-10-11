@@ -75,7 +75,7 @@ export async function onRequestPost(context) {
         } else {
             console.error('BOT_TOKEN is missing. Check the secret in Cloudflare.');
         }
-        return new Response(JSON.stringify({ success: true, orderNumber }), {
+        return new Response(JSON.stringify({ success: true, orderNumber, version: 'tg-v2' }), {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'
