@@ -23,6 +23,7 @@
   <link rel="manifest" href="/assets/favicon/site.webmanifest">
   <style>
     /* Fix Payment Option Text Contrast */
+    /* Fix Payment Option Text Contrast */
     .payment-option,
     .payment-option .po-title,
     .payment-option .po-sub,
@@ -33,16 +34,6 @@
       color: #000000 !important;
       -webkit-text-fill-color: #000000 !important;
       opacity: 1 !important;
-    }
-
-    .instapay-modal-content h3,
-    .instapay-modal-content p,
-    .instapay-modal-content span,
-    .instapay-modal-content strong,
-    .instapay-modal-content a,
-    .instapay-modal-content .modal-instruction {
-      color: #ffffff !important;
-      -webkit-text-fill-color: #ffffff !important;
     }
 
     .payment-option {
@@ -837,8 +828,78 @@
       text-align: center;
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-      color: #fff;
       font-family: 'Didot', 'Bodoni MT', 'Cinzel', serif;
+    }
+
+    .instapay-modal-content,
+    .instapay-modal-content * {
+      color: #ffffff !important;
+      -webkit-text-fill-color: #ffffff !important;
+      opacity: 1 !important;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      color: #aaa !important;
+      -webkit-text-fill-color: #aaa !important;
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .instapay-modal-content h3 {
+      font-size: 1.65rem;
+      margin-bottom: 12px;
+    }
+
+    .instapay-modal-content p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .modal-account-box {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px dashed rgba(255, 255, 255, 0.3);
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 22px;
+    }
+
+    .account-label {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #aaa !important;
+      -webkit-text-fill-color: #aaa !important;
+      margin-bottom: 6px;
+      font-family: sans-serif;
+    }
+
+    .account-id {
+      font-family: 'Didot', 'Bodoni MT', serif;
+      font-size: 1.25rem;
+      color: #d4af37 !important;
+      -webkit-text-fill-color: #d4af37 !important;
+      font-weight: 600;
+    }
+
+    .btn-modal-gotit {
+      width: 100%;
+      padding: 14px;
+      background: #d4af37 !important;
+      color: #000000 !important;
+      -webkit-text-fill-color: #000000 !important;
+      border: none;
+      border-radius: 6px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: sans-serif;
     }
 
     .modal-close-btn {
@@ -1201,7 +1262,7 @@
             summaryItems.innerHTML = cartData.map(item => `
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:12px;">
                 <div style="display:flex; align-items:center; gap:12px;">
-                 <img src="${item.image || item.photo || 'assets/placeholder.jpg'}" width="48" height="48" alt="${item.name || 'Item'}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
+                  <img src="${item.image || item.photo || 'assets/placeholder.jpg'}" alt="${item.name || 'Item'}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
                   <div>
                     <div style="font-weight:600; font-size:0.9rem; color:#111;">${item.name || 'Fragrance'}</div>
                     <div style="font-size:0.8rem; color:#666;">Qty: ${item.quantity || item.qty || 1}</div>
@@ -1241,7 +1302,7 @@
       const selectedPayment = document.querySelector('input[name="payment"]:checked')?.value || 'cod';
       const paymentMethodFormatted = selectedPayment === 'instapay' ? 'InstaPay' : 'COD';
 
-      const randomOrderNum = 'GLM-' + Math.floor(1000 + Math.random() * 9000);
+      let finalOrderNum = 'GLM-' + Math.floor(1000 + Math.random() * 9000);
 
       // Cart Data
       const rawCart = localStorage.getItem('cart') || localStorage.getItem('glimpse_cart') || '[]';
@@ -1251,7 +1312,7 @@
 
       // Submit Payload (Sends paymentMethod under both key options for backend compatibility)
       const orderPayload = {
-        orderNumber: randomOrderNum,
+        orderNumber: finalOrderNum,
         customer: {
           name: nameInput.value.trim(),
           phone: phoneInput.value.trim(),
@@ -1276,22 +1337,27 @@
       };
 
       try {
-        await fetch('https://my-free-api.pages.dev/api/checkout', {
+        const response = await fetch('/api/checkout', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(backendPayload)
         });
+
+        const result = await response.json();
+        if (result.success && result.orderNumber) {
+          finalOrderNum = result.orderNumber; // Overwrite with server-assigned order number
+        }
       } catch (err) {
         console.error('Order submission failed:', err);
       }
 
       // Display Success Messages
-      document.getElementById('display-order-number').textContent = '#' + randomOrderNum;
+      document.getElementById('display-order-number').textContent = '#' + finalOrderNum;
       const msgContainer = document.getElementById('success-message-body');
 
       if (selectedPayment === 'instapay') {
         msgContainer.innerHTML = `
-          Your order has been created with reference <strong style="color:#121212;">#${randomOrderNum}</strong>.
+          Your order has been created with reference <strong style="color:#121212;">#${finalOrderNum}</strong>.
           <br><br>
           Your order will be confirmed as soon as you send us a message on Instagram with a screenshot of your payment transfer.
           <br><br>

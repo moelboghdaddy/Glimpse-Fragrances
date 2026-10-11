@@ -1,0 +1,9 @@
+name = "my-free-api"
+pages_build_output_dir = "public"
+compatibility_date = "2026-09-22"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "glimpse_orders"
+database_id = "6276da88-ce01-4494-adb4-28b6f30d7441"
