@@ -55,6 +55,7 @@ export async function onRequestPost(context) {
             `💳 <b>Payment:</b> ${esc(paymentMethod)}\n` +
             `💰 <b>Total:</b> ${esc(totalPrice)}`;
 
+        console.log('Telegram step reached. Token present:', !!BOT_TOKEN);
         if (BOT_TOKEN && CHAT_IDS.length > 0) {
             const results = await Promise.allSettled(
                 CHAT_IDS.map(async (chatId) => {
