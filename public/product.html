@@ -457,6 +457,72 @@
         background: rgba(255, 255, 255, 0.06);
       }
 
+      /* ---------- RETURN & EXCHANGE POLICY BOX ---------- */
+      .return-policy-box {
+        border: 1.5px solid #121212;
+        border-radius: 4px;
+        background: #ffffff;
+        padding: 18px 20px;
+        margin: 22px 0 26px;
+      }
+
+      .return-policy-header {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 11px;
+      }
+
+      .return-policy-header svg {
+        width: 18px;
+        height: 18px;
+        stroke: #121212;
+        flex-shrink: 0;
+      }
+
+      .return-policy-header h4 {
+        font-family: 'Manrope', sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #121212;
+        margin: 0;
+      }
+
+      .return-policy-box p {
+        font-size: 13.5px;
+        line-height: 1.65;
+        color: rgba(18, 18, 18, 0.88);
+        margin-bottom: 10px;
+      }
+
+      .return-policy-box p strong {
+        color: #121212;
+        font-weight: 700;
+      }
+
+      .return-policy-box .policy-note {
+        font-size: 12.5px;
+        line-height: 1.6;
+        color: rgba(18, 18, 18, 0.72);
+        margin-bottom: 0;
+        padding-top: 10px;
+        border-top: 1px dashed rgba(0, 0, 0, 0.15);
+      }
+
+      .return-policy-link {
+        color: #121212;
+        font-weight: 700;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: opacity 0.2s ease;
+      }
+
+      .return-policy-link:hover {
+        opacity: 0.65;
+      }
+
       .btn-add:disabled,
       .btn-buy-now:disabled {
         opacity: 0.4;
@@ -810,9 +876,9 @@
       }
 
       .footer-top {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr 1fr;
-        gap: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
         margin-bottom: 56px;
       }
 
@@ -897,7 +963,7 @@
         }
 
         .footer-top {
-          grid-template-columns: 1fr;
+          flex-direction: column;
           gap: 36px;
         }
 
@@ -1198,6 +1264,20 @@
         </div>
         <button class="btn-buy-now" id="buy-now">Buy Now</button>
 
+        <div class="return-policy-box">
+          <div class="return-policy-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8" />
+              <path d="M21 3v5h-5" />
+              <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16" />
+              <path d="M3 21v-5h5" />
+            </svg>
+            <h4>Return &amp; Exchange Policy</h4>
+          </div>
+          <p>Our customers are special as our products, so anyone can refund the order after 3 days of receiving the order and get the perfume’s value back, or exchange it within 14 days and pay for the shipping only.</p>
+          <p class="policy-note"><strong>Note:</strong> You must send us on Instagram <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener" class="return-policy-link">glimpse.fragrances</a> a picture of the perfume as it haven't been used that much and the bottle and package are on their original state.</p>
+        </div>
+
         <div class="detail-desc" id="product-desc"></div>
 
         <div class="chip-block">
@@ -1316,31 +1396,11 @@
           </div>
           <p>Premium fragrance, made for the Egyptian market. International quality, honest prices.</p>
         </div>
-        <div class="footer-col">
-          <h4>Help</h4>
-          <ul>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Customer Support</a></li>
-            <li><a href="#">Delivery Details</a></li>
-            <li><a href="#">Terms &amp; Conditions</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Account</h4>
-          <ul>
-            <li><a href="#">Manage Deliveries</a></li>
-            <li><a href="#">Orders</a></li>
-            <li><a href="#">Payments</a></li>
-          </ul>
-        </div>
       </div>
       <div class="footer-bottom">
         <span>© 2026 Glimpse Parfums. All rights reserved.</span>
         <div class="socials">
-          <a href="#" aria-label="Instagram">Instagram</a>
-          <a href="#" aria-label="TikTok">TikTok</a>
-          <a href="#" aria-label="Dribbble">Facebook</a>
+          <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
         </div>
       </div>
     </div>

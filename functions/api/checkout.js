@@ -55,7 +55,7 @@ export async function onRequestPost(context) {
             `💳 <b>Payment:</b> ${esc(paymentMethod)}\n` +
             `💰 <b>Total:</b> ${esc(totalPrice)}`;
 
-        console.log('Telegram step reached. Token present:', !!BOT_TOKEN);
+
         if (BOT_TOKEN && CHAT_IDS.length > 0) {
             const results = await Promise.allSettled(
                 CHAT_IDS.map(async (chatId) => {
@@ -75,7 +75,7 @@ export async function onRequestPost(context) {
         } else {
             console.error('BOT_TOKEN is missing. Check the secret in Cloudflare.');
         }
-        return new Response(JSON.stringify({ success: true, orderNumber, version: 'tg-v2' }), {
+        return new Response(JSON.stringify({ success: true, orderNumber }), {
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'

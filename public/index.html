@@ -838,9 +838,9 @@
     }
 
     .footer-top {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr;
-      gap: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       margin-bottom: 56px;
     }
 
@@ -855,33 +855,9 @@
       max-width: 320px;
     }
 
-    .footer-col h4 {
-      font-size: 12.5px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold-soft);
-      margin-bottom: 20px;
-    }
-
-    .footer-col ul {
-      display: flex;
-      flex-direction: column;
-      gap: 13px;
-    }
-
-    .footer-col a {
-      font-size: 14px;
-      color: rgba(244, 238, 226, 0.72);
-      transition: color .2s ease;
-    }
-
-    .footer-col a:hover {
-      color: var(--gold);
-    }
-
     .footer-bottom {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
       border-top: 1px solid rgba(255, 255, 255, 0.10);
       padding-top: 28px;
@@ -889,6 +865,20 @@
       color: rgba(244, 238, 226, 0.4);
       flex-wrap: wrap;
       gap: 16px;
+    }
+
+    .socials {
+      display: flex;
+      gap: 22px;
+    }
+
+    .socials a {
+      color: rgba(18, 18, 18, 0.6);
+      transition: color .2s ease;
+    }
+
+    .socials a:hover {
+      color: #000;
     }
 
     /* ---------- FOOTER POPOVERS ---------- */
@@ -975,7 +965,7 @@
       }
 
       .footer-top {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         gap: 36px;
       }
     }
@@ -1399,36 +1389,12 @@
           </div>
           <p>Premium fragrance, made for the Egyptian market. International quality, honest prices.</p>
         </div>
-        <div class="footer-col">
-          <h4>Help</h4>
-          <ul>
-            <li class="footer-popover-wrap">
-              <a href="#" class="footer-popover-trigger" data-popover="popover-support">Customer Support</a>
-              <div class="footer-popover" id="popover-support">Contact us on <strong>glimpse.fragrances</strong> on
-                Instagram and we will reply as soon as possible.</div>
-            </li>
-            <li class="footer-popover-wrap">
-              <a href="#" class="footer-popover-trigger" data-popover="popover-delivery">Delivery Details</a>
-              <div class="footer-popover" id="popover-delivery">Contact us on <strong>glimpse.fragrances</strong> on
-                Instagram and we will reply as soon as possible.</div>
-            </li>
-            <li class="footer-popover-wrap">
-              <a href="#" class="footer-popover-trigger" data-popover="popover-refund">Refund &amp; Exchange Policy</a>
-              <div class="footer-popover footer-popover-wide" id="popover-refund">
-                You can refund your perfume and get the value you paid within <strong>3 days</strong> of the order
-                arriving, or exchange it for another perfume.
-                <br><br>
-                You <strong>must contact us on Instagram</strong> and send a photo of the perfume bottle from its
-                transparent side, placed on a flat surface.
-                <br><br>
-                If your order arrives damaged, contact us to return it and receive a replacement at no additional cost.
-              </div>
-            </li>
-          </ul>
-        </div>
       </div>
       <div class="footer-bottom">
         <span>© 2026 Glimpse Parfums. All rights reserved.</span>
+        <div class="socials">
+          <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener">Instagram</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -1460,23 +1426,6 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
     }, { threshold: 0.15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-    // Footer popovers (Customer Support / Delivery Details / Refund & Exchange)
-    document.querySelectorAll('.footer-popover-trigger').forEach(trigger => {
-      trigger.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = trigger.dataset.popover;
-        const target = document.getElementById(targetId);
-        const isOpen = target.classList.contains('show');
-        document.querySelectorAll('.footer-popover').forEach(p => p.classList.remove('show'));
-        if (!isOpen) target.classList.add('show');
-      });
-    });
-    document.addEventListener('click', (e) => {
-      if (!e.target.closest('.footer-popover-wrap')) {
-        document.querySelectorAll('.footer-popover').forEach(p => p.classList.remove('show'));
-      }
-    });
   </script>
 
 </body>
