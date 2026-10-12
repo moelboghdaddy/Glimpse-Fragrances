@@ -10,13 +10,13 @@
   // path was saved to localStorage at add-to-cart time, so a later asset
   // rename never leaves old cart items pointing at a missing file.
   const PRODUCT_IMAGES = {
-    'portofino': 'assets/Portofino no notes.png',
-    'tropical-chill': 'assets/tc no notes.png',
-    'cold-fire': 'assets/cold fire.png'
+    'portofino': 'assets/Portofino no notes.webp',
+    'tropical-chill': 'assets/tc no notes.webp',
+    'cold-fire': 'assets/cold fire.webp'
   };
 
   function getDisplayImage(item) {
-    return PRODUCT_IMAGES[item.id] || item.image || 'assets/logo.png';
+    return PRODUCT_IMAGES[item.id] || item.image || 'assets/logo.webp';
   }
 
   function getCart() {
@@ -96,7 +96,7 @@
       if (checkoutBtn) checkoutBtn.classList.remove('disabled');
       itemsEl.innerHTML = cart.map(i => `
         <div class="cart-item" data-id="${i.id}">
-          <img src="${getDisplayImage(i)}" alt="${i.name}" onerror="this.onerror=null; this.src='assets/logo.png';">
+          <img src="${getDisplayImage(i)}" alt="${i.name}" onerror="this.onerror=null; this.src='assets/logo.webp';">
           <div class="cart-item-info">
             <div class="cart-item-name">${i.name}</div>
             <div class="cart-item-price">${formatPrice(i.price)}</div>
