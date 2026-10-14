@@ -491,7 +491,7 @@
       text-decoration: line-through;
     }
 
-    /* ---------- HOVER / HOLD IMAGE SWAP ---------- */
+    /* ---------- PRODUCT IMAGE ---------- */
     .swap-img-wrap {
       position: relative;
       overflow: hidden;
@@ -506,16 +506,6 @@
       padding: 10px;
       object-fit: contain;
       object-position: center;
-      transition: opacity .55s ease;
-    }
-
-    .swap-img-wrap .swap-hover {
-      opacity: 0;
-    }
-
-    .product-card:hover .swap-hover,
-    .swap-img-wrap.is-active .swap-hover {
-      opacity: 1;
     }
 
     /* ---------- OUT OF STOCK ---------- */
@@ -867,6 +857,23 @@
       gap: 16px;
     }
 
+    .footer-credits {
+      font-size: 13px;
+      color: rgba(18, 18, 18, 0.6);
+    }
+
+    .footer-credits a {
+      color: #121212;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity .2s ease;
+    }
+
+    .footer-credits a:hover {
+      opacity: 0.7;
+    }
+
     .socials {
       display: flex;
       gap: 22px;
@@ -918,7 +925,8 @@
 
     @media (max-width:1024px) {
       .products {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
       }
     }
 
@@ -956,7 +964,60 @@
       }
 
       .products {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 8px !important;
+      }
+
+      .product-card {
+        padding: 14px 8px !important;
+      }
+
+      .product-photo {
+        height: 110px !important;
+        margin-bottom: 10px !important;
+      }
+
+      .rating {
+        font-size: 9px !important;
+        letter-spacing: 0 !important;
+        margin-bottom: 5px !important;
+      }
+
+      .unisex-badge {
+        font-size: 7.5px !important;
+        padding: 2px 4px !important;
+        margin-left: 2px !important;
+      }
+
+      .product-card h3 {
+        font-size: 13.5px !important;
+        margin-bottom: 3px !important;
+      }
+
+      .inspired {
+        font-size: 8.5px !important;
+        line-height: 1.2 !important;
+        margin-bottom: 8px !important;
+      }
+
+      .price-row {
+        gap: 4px !important;
+        flex-wrap: wrap !important;
+      }
+
+      .price-now {
+        font-size: 13px !important;
+      }
+
+      .price-was {
+        font-size: 10px !important;
+      }
+
+      .oos-badge {
+        font-size: 7.5px !important;
+        padding: 2px 5px !important;
+        top: 6px !important;
+        left: 6px !important;
       }
 
       .why-grid {
@@ -1266,7 +1327,7 @@
   <section class="bundle">
     <div class="wrap bundle-grid">
       <div class="bundle-img-wrap reveal">
-        <img src="assets/bundle.jpeg" alt="Portofino and Tropical Chill bundle box set">
+        <img src="assets/bundle.webp" alt="Portofino and Tropical Chill bundle box set">
       </div>
       <div class="bundle-content reveal">
         <span class="section-tag">Bundle &amp; Save</span>
@@ -1307,8 +1368,6 @@
         <a href="product.html?id=portofino" class="product-card reveal">
           <div class="product-photo swap-img-wrap">
             <img class="swap-base" src="assets/Portofino no notes.webp" alt="Portofino perfume bottle">
-            <img class="swap-hover" src="assets/Portofino with notes (2).webp"
-              alt="Portofino perfume bottle with fragrance notes">
           </div>
           <div class="rating">★★★★★ 5 / 5 <span class="unisex-badge">Unisex</span></div>
           <h3>Portofino</h3>
@@ -1321,8 +1380,6 @@
         <a href="product.html?id=tropical-chill" class="product-card reveal">
           <div class="product-photo swap-img-wrap">
             <img class="swap-base" src="assets/tc no notes.webp" alt="Tropical Chill perfume bottle">
-            <img class="swap-hover" src="assets/Tropical chill with notes.webp"
-              alt="Tropical Chill perfume bottle with fragrance notes">
           </div>
           <div class="rating">★★★★★ 5 / 5 <span class="unisex-badge">Unisex</span></div>
           <h3>Tropical Chill</h3>
@@ -1336,8 +1393,6 @@
           <span class="oos-badge">Out of Stock</span>
           <div class="product-photo swap-img-wrap">
             <img class="swap-base" src="assets/cold fire.webp" alt="Cold Fire perfume bottle">
-            <img class="swap-hover" src="assets/cold fire with notes.webp"
-              alt="Cold Fire perfume bottle with fragrance notes">
           </div>
           <div class="rating">★★★★★ 5 / 5 <span class="unisex-badge">For Him</span></div>
           <h3>Cold Fire</h3>
@@ -1359,24 +1414,7 @@
           premium, high-concentration Eau de Parfums made with the highest-quality oils sourced in the Middle East,
           blended by professional perfumers using English alcohol at precisely the right percentages. The result is the
           best experience we can offer, at prices that make sense.</p>
-        <div class="founder-note">
-          <p>I started Glimpse because I got tired of paying triple for a bottle just for the name on it. Every scent
-            here is one I'd actually wear myself.</p>
-          <span class="founder-signature">Mohamed</span>
-        </div>
       </div>
-    </div>
-  </section>
-
-  <section class="newsletter">
-    <div class="wrap">
-      <h2 class="reveal">Stay up to date on our latest offers</h2>
-      <p class="reveal">We have perfumes that suit your style — ones you're proud to wear. From women to men.</p>
-      <form class="subscribe-form reveal"
-        onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('button').textContent='Subscribed ✓';">
-        <input type="email" placeholder="Enter your email address" required>
-        <button type="submit">Subscribe</button>
-      </form>
     </div>
   </section>
 
@@ -1392,6 +1430,9 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Glimpse Parfums. All rights reserved.</span>
+        <div class="footer-credits">
+          Website developed and designed by <a href="https://instagram.com/moelboghdaddy" target="_blank" rel="noopener">@moelboghdaddy</a>
+        </div>
         <div class="socials">
           <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener">Instagram</a>
         </div>
@@ -1400,7 +1441,6 @@
   </footer>
 
   <script src="assets/cart.js"></script>
-  <script src="assets/swap.js"></script>
   <script src="/tracker.js"></script>
   <script>
     const bundleBtn = document.getElementById('bundle-add');
@@ -1411,7 +1451,7 @@
           id: 'bundle-portofino-tc',
           name: 'Portofino + Tropical Chill Bundle',
           price: 1299,
-          image: 'assets/bundle.jpeg',
+          image: 'assets/bundle.webp',
           qty: 1
         });
         const bundleImg = document.querySelector('.bundle-img-wrap img');

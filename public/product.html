@@ -185,7 +185,7 @@
 
       /* ---------- PRODUCT DETAIL ---------- */
       .product-detail {
-        padding: 56px 0 120px;
+        padding: 56px 0 28px;
       }
 
       .detail-grid {
@@ -226,27 +226,6 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
-      }
-
-      .gallery-slide .swap-img-wrap {
-        position: relative;
-        width: 100%;
-        height: 100%;
-      }
-
-      .gallery-slide .swap-img-wrap img {
-        position: absolute;
-        inset: 0;
-        transition: opacity .55s ease;
-      }
-
-      .gallery-slide .swap-img-wrap .swap-hover {
-        opacity: 0;
-      }
-
-      .gallery-slide:hover .swap-hover,
-      .gallery-slide .swap-img-wrap.is-active .swap-hover {
-        opacity: 1;
       }
 
       .gallery-arrow {
@@ -632,7 +611,7 @@
 
       /* ---------- LONGEVITY & PERFORMANCE ---------- */
       .longevity {
-        padding: 90px 0;
+        padding: 36px 0 90px;
       }
 
       .longevity .section-head {
@@ -927,6 +906,23 @@
         color: rgba(244, 238, 226, 0.4);
         flex-wrap: wrap;
         gap: 16px;
+      }
+
+      .footer-credits {
+        font-size: 13px;
+        color: rgba(18, 18, 18, 0.6);
+      }
+
+      .footer-credits a {
+        color: #121212;
+        font-weight: 600;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        transition: opacity .2s ease;
+      }
+
+      .footer-credits a:hover {
+        opacity: 0.7;
       }
 
       .socials {
@@ -1399,6 +1395,9 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Glimpse Parfums. All rights reserved.</span>
+        <div class="footer-credits">
+          Website developed and designed by <a href="https://instagram.com/moelboghdaddy" target="_blank" rel="noopener">@moelboghdaddy</a>
+        </div>
         <div class="socials">
           <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
         </div>
@@ -1407,7 +1406,6 @@
   </footer>
 
   <script src="assets/cart.js"></script>
-  <script src="assets/swap.js"></script>
   <script>
     const PRODUCT_ORDER = ["portofino", "tropical-chill", "cold-fire"];
 
@@ -1416,8 +1414,9 @@
         id: "portofino",
         name: "Portofino",
         images: [
-          { base: "assets/Portofino no notes.webp", hover: "assets/Portofino with notes (2).webp" },
-          "assets/portofino notes.jpeg",
+          "assets/Portofino no notes.webp",
+          "assets/Portofino with notes (2).webp",
+          "assets/portofino notes.webp",
           "assets/portofino 3.webp"
         ],
         inspired: "Inspired by Louis Vuitton Imagination",
@@ -1453,9 +1452,10 @@
         id: "tropical-chill",
         name: "Tropical Chill",
         images: [
-          { base: "assets/tc no notes.webp", hover: "assets/Tropical chill with notes.webp" },
-          "assets/tc notes.jpeg",
-          "assets/tc beach.jpg"
+          "assets/tc no notes.webp",
+          "assets/Tropical chill with notes.webp",
+          "assets/tc notes.webp",
+          "assets/tc beach.webp"
         ],
         inspired: "Inspired by Louis Vuitton Pacific Chill",
         price: "699 EGP",
@@ -1490,9 +1490,10 @@
         id: "cold-fire",
         name: "Cold Fire",
         images: [
-          { base: "assets/cold fire.webp", hover: "assets/cold fire with notes.webp" },
+          "assets/cold fire.webp",
+          "assets/cold fire with notes.webp",
           "assets/cold fire notes.webp",
-          "assets/cold fire in studio.jpeg"
+          "assets/cold fire in studio.webp"
         ],
         inspired: "Inspired by Bvlgari Tygar",
         price: "849 EGP",
@@ -1585,15 +1586,8 @@
       const images = currentProduct.images;
 
       track.innerHTML = images.map((entry, i) => {
-        if (typeof entry === 'string') {
-          return `<div class="gallery-slide"><img data-slide="${i}" src="${entry}" alt="${currentProduct.name} photo ${i + 1}"></div>`;
-        }
-        return `<div class="gallery-slide">
-        <div class="swap-img-wrap" data-slide="${i}">
-          <img class="swap-base" src="${entry.base}" alt="${currentProduct.name} photo ${i + 1}">
-          <img class="swap-hover" src="${entry.hover}" alt="${currentProduct.name} photo ${i + 1} with fragrance notes">
-        </div>
-      </div>`;
+        const src = typeof entry === 'string' ? entry : (entry.base || entry);
+        return `<div class="gallery-slide"><img data-slide="${i}" src="${src}" alt="${currentProduct.name} photo ${i + 1}"></div>`;
       }).join('');
 
       dotsWrap.innerHTML = images.map((_, i) =>

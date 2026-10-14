@@ -58,42 +58,52 @@
         overflow-x: hidden !important;
       }
 
-      /* 2. Force grid to stack vertically */
-      .checkout-grid {
+      /* Mobile Navbar Sizing (Keep logo original, make content smaller & well-spaced) */
+      header nav.wrap {
+        height: 60px !important;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
         display: flex !important;
-        flex-direction: column !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        gap: 20px !important;
+        align-items: center !important;
+        justify-content: space-between !important;
       }
 
-      /* 3. Strip fixed widths off form & summary card */
-      #checkout-form,
-      .summary-box {
-        width: 100% !important;
-        max-width: 100% !important;
-        min-width: 0 !important;
-        flex: none !important;
-        box-sizing: border-box !important;
+      .logo-img {
+        height: 26px !important; /* Preserved size for logo */
+        width: auto !important;
       }
 
-      /* 4. Force side-by-side inputs (like phone numbers) into 1 vertical column */
-      .field-row {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 12px !important;
+      .nav-links {
+        gap: 14px !important;
+        font-size: 11px !important;
+        letter-spacing: 0.04em !important;
       }
 
-      /* 5. Keep all inputs strictly within screen boundaries */
-      input,
-      textarea,
-      select,
-      .payment-option {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
+      .nav-links a {
+        padding: 4px 2px !important;
       }
 
+      .nav-actions {
+        gap: 8px !important;
+      }
+
+      .cart-toggle {
+        width: 32px !important;
+        height: 32px !important;
+      }
+
+      .cart-toggle svg {
+        width: 15px !important;
+        height: 15px !important;
+      }
+
+      .cart-badge {
+        min-width: 15px !important;
+        height: 15px !important;
+        font-size: 9px !important;
+        top: -4px !important;
+        right: -4px !important;
+      }
 
       /* 2. Force grid to stack vertically */
       .checkout-grid {
@@ -690,6 +700,23 @@
       gap: 16px;
     }
 
+    .footer-credits {
+      font-size: 13px;
+      color: rgba(18, 18, 18, 0.6);
+    }
+
+    .footer-credits a {
+      color: #121212;
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity .2s ease;
+    }
+
+    .footer-credits a:hover {
+      opacity: 0.7;
+    }
+
     .socials {
       display: flex;
       gap: 22px;
@@ -1171,6 +1198,9 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Glimpse Parfums. All rights reserved.</span>
+        <div class="footer-credits">
+          Website developed and designed by <a href="https://instagram.com/moelboghdaddy" target="_blank" rel="noopener">@moelboghdaddy</a>
+        </div>
         <div class="socials">
           <a href="https://instagram.com/glimpse.fragrances" target="_blank" rel="noopener">Instagram</a>
         </div>
@@ -1247,7 +1277,7 @@
             summaryItems.innerHTML = cartData.map(item => `
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; gap:12px;">
                 <div style="display:flex; align-items:center; gap:12px;">
-                  <img src="${item.image || item.photo || 'assets/placeholder.jpg'}" alt="${item.name || 'Item'}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
+                  <img src="${item.image || item.photo || 'assets/boxes.webp'}" alt="${item.name || 'Item'}" style="width:48px; height:48px; object-fit:cover; border-radius:6px; border:1px solid #eee;">
                   <div>
                     <div style="font-weight:600; font-size:0.9rem; color:#111;">${item.name || 'Fragrance'}</div>
                     <div style="font-size:0.8rem; color:#666;">Qty: ${item.quantity || item.qty || 1}</div>
